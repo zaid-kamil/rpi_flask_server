@@ -1,0 +1,186 @@
+
+{% extends 'theme.html' %}
+{% block body %}
+<style>
+    .am-menu__wrapper{
+        padding: 0em !important;
+    }
+    body{
+        background-color: rgb(35, 104, 136);
+    }
+</style>
+<div class="jumbotron">
+    <h1 class="display-3">Iot Home Controller</h1>
+    <p class="lead">Click on switches to continue</p>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-dismissible fade hide" role="alert">
+                <p class="text-center"></p>
+               
+              </div>
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col-sm-3">
+            <div class="card text-center d1 mb-4">
+                <div class="card-body">
+                    <h3 class="card-title">Device 1</h3>
+                    <div class="slideThree">  
+                        <input type="checkbox" value="None" id="dev1" name="dev1"  />
+                        <label for="dev1"></label>
+                    </div>
+                    <p class="card-text">Bulb 1</p>
+                </div>
+                
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card text-center d2 mb-4">
+                <div class="card-body">
+                    <h3 class="card-title">Device 2</h3>
+                    <div class="slideThree">  
+                        <input type="checkbox" value="None" id="dev2" name="dev2"  />
+                        <label for="dev2"></label>
+                    </div>
+                    <p class="card-text">Bulb 2</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card text-center d3 mb-4">
+                <div class="card-body">
+                    <h3 class="card-title">Device 3</h3>
+                    <div class="slideThree">  
+                        <input type="checkbox" value="None" id="dev3" name="dev3"  />
+                        <label for="dev3"></label>
+                    </div>
+                    <p class="card-text">Bulb 3</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card text-center d4 mb-4">
+                <div class="card-body ">
+                    <h3 class="card-title">Device 4</h3>
+                    <div class="slideThree">  
+                        <input type="checkbox" value="None" id="dev4" name="dev4" disabled />
+                        <label for="dev4"></label>
+                    </div>
+                    <p class="card-text">Bulb 4</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+    	<div class="col-6 m-auto">
+    		<img src="https://www.raspberrypi.org/homepage-9df4b/static/hero-shot-33d83b8c5fa0933373dabcc9462b32a3.png" class="img-fluid" />
+    	</div>
+    </div>
+    <div class="jumbotron mt-4">
+    <h1 class="text-center display-4">Based on <b>Raspberry Pi 3B+</b></h1>
+    <p class="text-center">
+    The tiny, dual-display, desktop computer<br>
+
+…and robot brains, smart home hub, media centre,<br> networked AI core, factory controller, and much more
+    </p>
+    <p class="text-center lead">brought to you by digipodium</p>
+    </div>
+</div>
+
+
+{% endblock %}
+{% block js %}
+<script>
+    $(function () {
+        $('#dev1').change(function() {
+            let state = Number($(this).is(':checked'))
+            $.get("/update?device=dev1&state="+state,
+                function (data, textStatus, jqXHR) {
+                    console.log("data: "+data.msg+"status"+data.status)
+                    if (data.status){
+                   		$('.alert').removeClass('alert-danger').addClass('show alert-success ').find('p').html(data.msg).css('margin',0);
+	                    if (state){
+	                    	$('#dev1').parent().css('background','green')
+	                    	$('.d1').addClass('shadow-pop-tr')
+	                    }else{
+	                    	$('#dev1').parent().css('background','red')
+	                    	$('.d1').removeClass('shadow-pop-tr')
+	                    }
+	                 
+                    }else{
+                    	$('.alert').removeClass('alert-success').addClass('show alert-danger').find('p').html(data.msg).css('margin',0);
+                    }
+                }
+            );
+        });
+        $('#dev2').change(function() {
+            let state = Number($(this).is(':checked'))
+            $.get("/update?device=dev2&state="+state,
+                function (data, textStatus, jqXHR) {
+                    console.log("data: "+data.msg+"status"+data.status)
+                    if (data.status){
+                   		$('.alert').removeClass('alert-danger').addClass('show alert-info').find('p').html(data.msg).css('margin',0);
+	                    if (state){
+	                    	$('#dev2').parent().css('background','green')
+	                    	$('.d2').addClass('shadow-pop-tr')
+	                    }else{
+	                    	$('#dev2').parent().css('background','red')
+	                    	$('.d2').removeClass('shadow-pop-tr')
+	                    }
+	                   
+                    }else{
+                    	$('.alert').removeClass('alert-success').addClass('show alert-danger').find('p').html(data.msg).css('margin',0);
+                 	}
+                }
+            );
+        });
+        $('#dev3').change(function() {
+            let state = Number($(this).is(':checked'))
+            $.get("/update?device=dev3&state="+state,
+                function (data, textStatus, jqXHR) {
+                    console.log("data: "+data.msg+"status"+data.status)
+                    if (data.status){
+                   		$('.alert').removeClass('alert-danger').addClass('show alert-info').find('p').html(data.msg).css('margin',0);
+	                    if (state){
+	                    	$('#dev3').parent().css('background','green')
+	                    	$('.d3').addClass('shadow-pop-tr')
+	                    }else{
+	                    	$('#dev3').parent().css('background','red')
+	                    	$('.d3').removeClass('shadow-pop-tr')
+	                    }
+	                   
+                    }else{
+                    	$('.alert').removeClass('alert-success').addClass('show alert-danger').find('p').html(data.msg).css('margin',0);
+                 	}
+                }
+            );
+        });
+        $('#dev4').change(function() {
+            let state = Number($(this).is(':checked'))
+            $.get("/update?device=dev4&state="+state,
+                function (data, textStatus, jqXHR) {
+                    console.log("data: "+data.msg+"status"+data.status)
+                    if (data.status){
+                   		$('.alert').removeClass('alert-danger').addClass('show alert-info').find('p').html(data.msg).css('margin',0);
+	                    if (state){
+	                    	$('#dev4').parent().css('background','green')
+	                    	$('.d4').addClass('shadow-pop-tr')
+	                    }else{
+	                    	$('#dev4').parent().css('background','red')
+	                    	$('.d4').removeClass('shadow-pop-tr')
+	                    }
+	                   
+                    }else{
+                    	$('.alert').removeClass('alert-success').addClass('show alert-danger').find('p').html(data.msg).css('margin',0);
+                 	}
+                }
+            );
+        });
+
+    });    
+</script>
+{% endblock %}
+
